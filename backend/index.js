@@ -32,6 +32,7 @@ app.get(`/filmes/:id`, verificarFilme ,(req, res) => {
 
 const host = "localhost";
 const port = 3000;
+
 app.listen(port, (err) => {
   if (!err) {
     console.log(`Servidor Inciado, escutando em:  ${host}:${port}`);
