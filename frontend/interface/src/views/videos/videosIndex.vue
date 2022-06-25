@@ -3,90 +3,42 @@
     <p class="titulo">Titulos Disponivels</p>
     <div class="videos">
       <div class="tumbs">
-        <b-card
-          img-src="../../assets/images/Awaken.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem"
-          class="mb-2 ml-2 mt-2 mr-2"
-        >
-          <b-card-text> Awaken </b-card-text>
-
-          <router-link :to="'/videos/Awaken'"
-            ><b-button variant="primary">Assistir</b-button></router-link
-          >
-        </b-card>
-        <b-card
-          img-src="../../assets/images/BattleAzeroth.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem"
-          class="mb-2 ml-2 mt-2 mr-2"
-        >
-          <b-card-text> BattleAzeroth </b-card-text>
-
-          <router-link :to="'/videos/BattleAzeroth'"
-            ><b-button variant="primary">Assistir</b-button></router-link
-          >
-        </b-card>
-        <b-card
-          img-src="../../assets/images/Dragonflight.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem"
-          class="mb-2 ml-2 mt-2 mr-2"
-        >
-          <b-card-text> Dragonflight </b-card-text>
-
-          <router-link :to="'/videos/Dragonflight'"
-            ><b-button variant="primary">Assistir</b-button></router-link
-          >
-        </b-card>
-        <b-card
-          img-src="../../assets/images/Dragons_.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem"
-          class="mb-2 ml-2 mt-2 mr-2"
-        >
-          <b-card-text> Dragons_ </b-card-text>
-
-          <router-link :to="'/videos/Dragons_'"
-            ><b-button variant="primary">Assistir</b-button></router-link
-          >
-        </b-card>
-        <b-card
-          img-src="../../assets/images/thecall.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem"
-          class="mb-2 ml-2 mt-2 mr-2"
-        >
-          <b-card-text> Sthecall </b-card-text>
-
-          <router-link :to="'/videos/thecall'"
-            ><b-button variant="primary">Assistir</b-button></router-link
-          >
-        </b-card>
-        <b-card
-          img-src="../../assets/images/Wastelander.jpg"
-          img-alt="Image"
-          img-top
-          tag="article"
-          style="max-width: 20rem"
-          class="mb-2 ml-2 mt-2 mr-2"
-        >
-          <b-card-text> Wastelander </b-card-text>
-          <video-player></video-player>
-          <router-link :to="'/videos/Wastelander'"
-            ><b-button variant="primary">Assistir</b-button></router-link
-          >
-        </b-card>
+        <b-embed
+          type="iframe"
+          aspect="16by9"
+          src="http://45.191.205.222:3000/filmes/Awaken"
+          allowfullscreen
+        ></b-embed>
+        <b-embed
+          type="iframe"
+          aspect="16by9"
+          src="http://45.191.205.222:3000/filmes/BattleAzeroth"
+          allowfullscreen
+        ></b-embed>
+        <b-embed
+          type="iframe"
+          aspect="16by9"
+          src="http://45.191.205.222:3000/filmes/Dragonflight"
+          allowfullscreen
+        ></b-embed>
+        <b-embed
+          type="iframe"
+          aspect="16by9"
+          src="http://45.191.205.222:3000/filmes/Dragons_"
+          allowfullscreen
+        ></b-embed>
+        <b-embed
+          type="iframe"
+          aspect="16by9"
+          src="http://45.191.205.222:3000/filmes/thecall"
+          allowfullscreen
+        ></b-embed>
+        <b-embed
+          type="iframe"
+          aspect="16by9"
+          src="http://45.191.205.222:3000/filmes/Wastelander"
+          allowfullscreen
+        ></b-embed>
       </div>
     </div>
 
