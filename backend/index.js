@@ -7,7 +7,7 @@ const rotas = require('./src/routes/index')
 app.use(...middlewares);
 app.use(...rotas);
 
-const host = "localhost";
+const host = "45.191.205.222";
 
 const port = 3000;
 

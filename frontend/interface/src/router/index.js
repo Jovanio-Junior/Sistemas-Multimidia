@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import login from '../views/login.vue'
 import cadastro from '../components/cadastro.vue'
 import videosIndex from '../views/videos/videosIndex.vue'
-import videosPlayer from '../views/videos/videosPlayer.vue'
+import videosPlayer from '../components/videosPlayer.vue'
 Vue.use(VueRouter)
 
 const routes = [

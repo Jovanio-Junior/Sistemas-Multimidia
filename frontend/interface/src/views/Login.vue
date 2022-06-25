@@ -60,7 +60,7 @@ export default {
         this.erro = false;
         this.erroMsg = "";
         this.carregando = true;
-        var flag = await axios.post("http://localhost:3000/login", {
+        var flag = await axios.post("http://45.191.205.222:3000/login", {
           login: {
             email: this.login.email,
             senha: this.login.senha,
