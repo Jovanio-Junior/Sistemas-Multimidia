@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Formulário de Login</title>
+    <style>
+        body {
+            background-image: url("https://img.freepik.com/vetores-gratis/perspectiva-da-rua-japonesa-em-luzes-neon_52683-44988.jpg");
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .container {
+            width: 300px;
+            margin: 150px auto;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            color: white;
+            margin-bottom: 5px;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 5px;
+            background-color: white;
+            border: none;
+        }
+
+        .btn-container {
+            text-align: center;
+        }
+
+        .btn-container button {
+            padding: 10px 20px;
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-container button:hover {
+            background-color: #45a049;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 20% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 300px;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <div class="form-group">
+            <label for="login">Login:</label>
+            <input type="text" id="login" name="login" placeholder="Digite seu login">
+        </div>
+        <div class="form-group">
+            <label for="senha">Senha:</label>
+            <input type="password" id="senha" name="senha" placeholder="Digite sua senha">
+        </div>
+        <div class="btn-container">
+            <button onclick="logar()">Entrar</button>
+            <button onclick="openModal('cadastrar')">Cadastrar</button>
+            <button onclick="openModal('recuperar')">Recuperar Senha</button>
+        </div>
+    </div>
+
+    <!-- Janela Modal para Cadastrar -->
+    <div id="modal-cadastrar" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('cadastrar')">&times;</span>
+            <h2>Cadastrar</h2>
+            <div class="form-group">
+                <label for="cadastro-login">Login:</label>
+                <input type="text" id="cadastro-login" name="cadastro-login" placeholder="Digite seu novo login">
+            </div>
+            <div class="form-group">
+                <label for="cadastro-senha">Senha:</label>
+                <input type="password" id="cadastro-senha" name="cadastro-senha" placeholder="Digite sua nova senha">
+            </div>
+            <button onclick="realizarCadastro()">Cadastrar</button>
+        </div>
+    </div>
+
+    <!-- Janela Modal para Recuperar Senha -->
+    <div id="modal-recuperar" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('recuperar')">&times;</span>
+            <h2>Recuperar Senha</h2>
+            <div class="form-group">
+                <label for="recuperar-login">Login:</label>
+                <input type="text" id="recuperar-login" name="recuperar-login" placeholder="Digite seu login">
+            </div>
+            <div class="form-group">
+                <label for="recuperar-nova-senha">Nova Senha:</label>
+                <input type="password" id="recuperar-nova-senha" name="recuperar-nova-senha"
+                    placeholder="Digite sua nova senha">
+            </div>
+            <button onclick="realizarRecuperacao()">Recuperar Senha</button>
+        </div>
+    </div>
+
+    <script>
+        function logar() {
+            const login = document.getElementById('login').value;
+            const senha = document.getElementById('senha').value;
+
+            const data = { user: login, senha: senha };
+            enviarDadosParaAPI('http://localhost:3000/logar', data);
+        }
+
+        function enviarDadosParaAPI(url, data) {
+            // Exemplo básico de como fazer uma requisição POST com JSON:
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Falha ao conectar à API');
+                    }
+                    return response.json();
+                })
+                .then(result => {
+                    console.log(result);
+                    // Verifique a resposta da API para confirmar o login
+                    if (result.success) {
+                        // Login bem-sucedido, navegue para a próxima página
+                        window.location.href = 'pagina_seguinte.html';
+                    } else {
+                        // Login falhou, exiba uma mensagem de erro
+                        alert('Falha no login');
+                    }
+                })
+                .catch(error => {
+                    console.error('Ocorreu um erro:', error);
+                    // Falha ao conectar à API, exiba uma mensagem de erro
+                    alert('Falha no login');
+                });
+        }
+
+        // Funções para abrir e fechar as janelas modais
+        function openModal(modalName) {
+            const modal = document.getElementById('modal-' + modalName);
+            modal.style.display = 'block';
+        }
+
+        function closeModal(modalName) {
+            const modal = document.getElementById('modal-' + modalName);
+            modal.style.display = 'none';
+        }
+
+        function realizarCadastro() {
+            const cadastroLogin = document.getElementById('cadastro-login').value;
+            const cadastroSenha = document.getElementById('cadastro-senha').value;
+
+            const data = { user: cadastroLogin, senha: cadastroSenha };
+            enviarDadosParaAPI('http://localhost:3000/cadastrar', data);
+        }
+
+        function realizarRecuperacao() {
+            const recuperarLogin = document.getElementById('recuperar-login').value;
+            const recuperarNovaSenha = document.getElementById('recuperar-nova-senha').value;
+
+            const data = { user: recuperarLogin, nova_senha: recuperarNovaSenha };
+            enviarDadosParaAPI('http://localhost:3000/recuperar_senha', data);
+        }
+    </script>
+</body>
+
+</html>
