@@ -3,7 +3,9 @@ const fs = require('fs');
 const middlewares = require("./src/config/middlewares");
 const app = express();
 const rotas = require('./src/routes/index')
+const morgan = require('morgan')
 
+app.use(morgan('tiny'));
 app.use(...middlewares);
 app.use(...rotas);
 

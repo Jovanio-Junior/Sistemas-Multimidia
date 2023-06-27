@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Assistir</title>
+  <style>
+    #video-player {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 80vh;
+    }
+  </style>
+</head>
+
+<body>
+  <h1>Assistir</h1>
+
+  <div id="video-player">
+    <video id="video" controls autoplay>
+      <!-- Video source URL will be set dynamically -->
+    </video>
+  </div>
+
+  <script>
+    // Extract the video ID from the URL parameter
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoId = urlParams.get('id');
+
+    // Construct the video URL using the ID
+    const videoUrl = `http://localhost:3000/assistir/${videoId}`;
+
+    // Set the video source dynamically
+    const videoElement = document.getElementById('video');
+    videoElement.src = videoUrl;
+
+    // Check the status of the video request
+    videoElement.addEventListener('error', function() {
+        const xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+              // Video loaded successfully
+              return;
+            } else if (xhr.status === 401) {
+              alert('Faça o login para assistir o vídeo.');
+              window.location.href = 'index.html';
+            } else {
+              alert('Erro desconhecido.');
+              window.location.href = 'catalogo.html';
+            }
+          }
+        };
+        xhr.open('GET', videoUrl);
+        xhr.send();
+      });
+  </script>
+</body>
+
+</html>

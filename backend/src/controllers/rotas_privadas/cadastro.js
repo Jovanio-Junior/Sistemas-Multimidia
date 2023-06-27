@@ -3,28 +3,38 @@ const path = require('path');
 const jwt = require('jsonwebtoken');
 const secretKey = require('../../config/jwt/secretKey');
 const jwtOption = require('../../config/jwt/options');
+const consultas = require('../../database/consultas.js')
+
 
 async function cadastro(req, res) {
     console.log("Post -> /cadastro");
-
     try {
         if (req.body.login.usuario && req.body.login.senha) {
-            const db = getDatabase();
             var data = new Date();
 
             const usuario = req.body.login.usuario;
             const senha = req.body.login.senha;
-
-            const bancoLocalPath = path.join(__dirname, '../../src/database/banco_local.json');
-            const dataObj = {
-                usuario: usuario,
-                senha: senha
-            };
-
-            fs.writeFileSync(bancoLocalPath, JSON.stringify(dataObj));
-
-            res.status(200);
-            res.send("asdf");
+            // Verifica se o usuário já existe
+            const usuarioExistente = await consultas.usuario_existe(usuario)
+            if(usuarioExistente) {
+                res.status(404)
+                res.json({
+                    erro: "Usuario já existe"
+                })
+            } else {
+                const cadastrouUsuario = await consultas.cadastrar_usuario(usuario,senha)
+                if(cadastrouUsuario){  
+                    res.status(200);
+                    res.json({
+                        sucesso: "Usuario cadastrado Com sucesso!"
+                    });
+                }else {
+                    res.status(500)
+                    res.json({
+                        erro: "algo de errado não esta certo."
+                    })
+                }
+            }
         } else {
             if (!req.body.login.usuario && !req.body.login.senha) {
                 res.status(404);
